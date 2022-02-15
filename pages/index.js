@@ -2,6 +2,7 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { Sidebar } from '../components';
 
 const user = {
 	name: 'John Clever',
@@ -9,10 +10,9 @@ const user = {
 	imageUrl: 'https://img.icons8.com/ios/50/000000/cat-profile.png',
 };
 const navigation = [
-	{ name: 'Dashboard', href: '#', current: true },
-	{ name: 'Merchant', href: '#', current: false },
+	{ name: 'Merchant', href: '#', current: true },
 	{ name: 'Partner', href: '#', current: false },
-
+	{ name: 'Courrier', href: '#', current: false },
 ];
 const userNavigation = [
 	{ name: 'Your Profile', href: '#' },
@@ -31,19 +31,17 @@ export default function Home() {
 				<Disclosure as='nav' className='bg-gray-800'>
 					{({ open }) => (
 						<>
+					
 							<div className=' mx-auto px-4 sm:px-6 lg:px-8'>
 								<div className='flex items-center justify-between h-16'>
 									<div className='flex items-center'>
 										<div className='flex-shrink-0'>
-                      <h3 className='text-white'>SOMA</h3>
-											{/* <img
-												className='h-8 w-8'
-												src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
-												alt='Workflow'
-											/> */}
+											<h3 className='text-white'>
+												SOMA
+											</h3>
 										</div>
-										<div className='hidden md:block'>
-											<div className='ml-10 flex items-baseline space-x-4'>
+										<div className='hidden md:block absolute left-1/2 -translate-x-1/2 '>
+											<div className='flex items-self justify-center space-x-4'>
 												{navigation.map(
 													item => (
 														<a
@@ -180,7 +178,6 @@ export default function Home() {
 									</div>
 								</div>
 							</div>
-
 							<Disclosure.Panel className='md:hidden'>
 								<div className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
 									{navigation.map(item => (
@@ -271,7 +268,7 @@ export default function Home() {
 					)}
 				</Disclosure>
 				<div className='flex'>
-					<div className='w-64 h-screen bg-gray-800 border-t border-white hidden lg:block'></div>
+					<Sidebar />
 					<div className='w-full'>
 						<header className='bg-white shadow'>
 							<div className=' mx-auto py-6 px-4 sm:px-6 lg:px-8'>
@@ -282,11 +279,9 @@ export default function Home() {
 						</header>
 						<main>
 							<div className=' mx-auto py-6 sm:px-6 lg:px-8'>
-								{/* Replace with your content */}
-								<div className='px-4 py-6 sm:px-0'>
+								{/* <div className='px-4 py-6 sm:px-0'>
 									<div className='border-4 border-dashed border-gray-200 rounded-lg h-96' />
-								</div>
-								{/* /End replace */}
+								</div> */}
 							</div>
 						</main>
 					</div>
