@@ -13,8 +13,7 @@ import { RiRefund2Fill, RiStackLine } from 'react-icons/ri';
 import { GiSplitArrows } from 'react-icons/gi';
 import { FiShoppingBag, FiMail } from 'react-icons/fi';
 
-
-export default function Sidebar({ active }) {
+export default function MerchantSidebar({ active }) {
 	return (
 		<div className='w-64 h-screen bg-gray-800 border-t border-white hidden lg:block'>
 			<ul className='flex  flex-col  mt-4 pt-4 ml-8 text-slate-200 font-thin'>

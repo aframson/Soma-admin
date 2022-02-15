@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Sidebar } from '../../components';
+import { CourrierSidebar } from '../../components';
 import { useRouter } from 'next/router';
 const user = {
 	name: 'John Clever',
@@ -274,7 +274,7 @@ export default function Courrier() {
 					)}
 				</Disclosure>
 				<div className='flex'>
-					<Sidebar />
+					<CourrierSidebar />
 					<div className='w-full'>
 						<header className='bg-white shadow'>
 							<div className=' mx-auto py-6 px-4 sm:px-6 lg:px-8'>

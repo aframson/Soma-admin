@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Sidebar } from '../../components';
+import { MerchantSidebar } from '../../components';
 import { useRouter } from 'next/router';
 
 const user = {
@@ -64,7 +64,11 @@ export default function Partner() {
 																	? 'page'
 																	: undefined
 															}
-                                                                                          onClick={() => Router.push(item.route)}
+															onClick={() =>
+																Router.push(
+																	item.route,
+																)
+															}
 														>
 															{
 																item.name
@@ -271,7 +275,7 @@ export default function Partner() {
 					)}
 				</Disclosure>
 				<div className='flex'>
-					<Sidebar />
+					<MerchantSidebar />
 					<div className='w-full'>
 						<header className='bg-white shadow'>
 							<div className=' mx-auto py-6 px-4 sm:px-6 lg:px-8'>
