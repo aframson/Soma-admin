@@ -1,4 +1,8 @@
 
-import {MerchantSidebar} from './Merchant';
+import {MerchantSidebar, MerchantData} from './Merchant';
 import { CourrierSidebar } from './Courrier';
-export { MerchantSidebar, CourrierSidebar };
+import { PartnerSidebar } from './Partner';
+
+
+
+export { MerchantSidebar, CourrierSidebar, PartnerSidebar, MerchantData };

@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { MerchantSidebar } from '../../components';
+import { MerchantData, MerchantSidebar } from '../../components';
 import { useRouter } from 'next/router';
 
 const user = {
@@ -286,9 +286,7 @@ export default function Merchant() {
 						</header>
 						<main>
 							<div className=' mx-auto py-6 sm:px-6 lg:px-8'>
-								{/* <div className='px-4 py-6 sm:px-0'>
-									<div className='border-4 border-dashed border-gray-200 rounded-lg h-96' />
-								</div> */}
+								<MerchantData />
 							</div>
 						</main>
 					</div>

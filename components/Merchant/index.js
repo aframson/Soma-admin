@@ -1,3 +1,3 @@
 import MerchantSidebar from './Sidebar';
-
-export { MerchantSidebar };
+import MerchantData from './MerchantData';
+export { MerchantSidebar, MerchantData };
