@@ -6,7 +6,7 @@ import { Marketable } from '../../cards';
 export default function MerchantData() {
 	const Perterns_Table = 'partners';
 
-	const [data, setData] = useState('');
+	const [data, setData] = useState([]);
 
 	const fetchMechants = async () => {
 		const q = query(collection(db, Perterns_Table));
@@ -27,6 +27,9 @@ export default function MerchantData() {
 		fetchMechants();
 	}, []);
 
+		useEffect(() => {
+			console.log(data);
+		}, [data]);
 	return (
 		<div class='flex flex-col'>
 			<div class='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -68,7 +71,7 @@ export default function MerchantData() {
 								</tr>
 							</thead>
 							<tbody class='bg-white divide-y divide-gray-200'>
-								{data?.map(merchant =>
+								{data.map(merchant =>
 									<Marketable key={merchant.id} merchant={merchant}/>								
 								)}
 							</tbody>
