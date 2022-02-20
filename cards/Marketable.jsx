@@ -21,7 +21,7 @@ function Marketable({ merchant }) {
 						>
 							<img
 								className={`rounded-full w-10 h-10 mr-4`}
-							
+								alt='.'
 							/>
 						</div>
 					)}
@@ -41,28 +41,28 @@ function Marketable({ merchant }) {
 					</div>
 				</div>
 			</td> */}
-			<td class='px-6 py-4 whitespace-nowrap'>
-				<div class='text-sm text-gray-900'>
+			<td className='px-6 py-4 whitespace-nowrap'>
+				<div className='text-sm text-gray-900'>
 					{merchant.email}
 				</div>
 			</td>
-			<td class='px-6 py-4 whitespace-nowrap'>
-				<div class='text-sm text-gray-900'>
+			<td className='px-6 py-4 whitespace-nowrap'>
+				<div className='text-sm text-gray-900'>
 					{merchant.establishment}
 				</div>
 			</td>
-			{/* <td class='px-6 py-4 whitespace-nowrap'>
-				<span class='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800'>
+			{/* <td className='px-6 py-4 whitespace-nowrap'>
+				<span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800'>
 					Active
 				</span>
 			</td> */}
-			<td class='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+			<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 				{merchant.telephone}
 			</td>
-			<td class='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+			<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 				<a
 					href='#'
-					class='text-indigo-600 hover:text-indigo-900'
+					className='text-indigo-600 hover:text-indigo-900'
 				>
 					Edit
 				</a>
