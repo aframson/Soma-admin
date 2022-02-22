@@ -1,16 +1,18 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 function Marketable({ merchant }) {
+	const Router = useRouter();
 	return (
-		<tr>
-			<td className='px-6 py-4 whitespace-nowrap'>
+		<tr onClick={e => Router.push(`/merchant/${merchant.id}`)}>
+			<td className='px-6 py-6 whitespace-nowrap'>
 				<div className='flex items-center'>
 					{merchant.storeBanner ? (
 						<div
-							className={`flex-shrink-0 w-10 h-10 mr-4`}
+							className={`flex-shrink-0  w-10 h-10 mr-4`}
 						>
 							<img
-								className={`rounded-full w-10 h-10 mr-4`}
+								className={`rounded-lg shadow-xl w-10 h-10 mr-4`}
 								src={merchant.storeBanner}
 								alt={merchant.username}
 							/>
@@ -20,7 +22,7 @@ function Marketable({ merchant }) {
 							className={`flex-shrink-0 w-10 h-10 mr-4`}
 						>
 							<img
-								className={`rounded-full w-10 h-10 mr-4`}
+								className={`rounded-lg shadow-lg w-10 h-10 mr-4`}
 								alt='.'
 							/>
 						</div>
@@ -62,9 +64,9 @@ function Marketable({ merchant }) {
 			<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
 				<a
 					href='#'
-					className='text-indigo-600 hover:text-indigo-900'
+					className='text-indigo-600 hover:text-indigo-900 w-36 h-36 '
 				>
-					Edit
+					{'>'}
 				</a>
 			</td>
 		</tr>
