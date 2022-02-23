@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 function Marketable({ merchant }) {
 	const Router = useRouter();
@@ -9,20 +10,24 @@ function Marketable({ merchant }) {
 				<div className='flex items-center'>
 					{merchant.storeBanner ? (
 						<div
-							className={`flex-shrink-0  w-10 h-10 mr-4`}
+							className={`flex-shrink-0 relative w-10 h-10 mr-4`}
 						>
-							<img
-								className={`rounded-lg shadow-xl w-10 h-10 mr-4`}
+							<Image
 								src={merchant.storeBanner}
-								alt={merchant.username}
+								alt={merchant.storeBanner}
+								layout='fill'
+								objectFit='contain'
+								className={`rounded-lg shadow-xl w-10 h-10 mr-4`}
 							/>
 						</div>
 					) : (
 						<div
 							className={`flex-shrink-0 w-10 h-10 mr-4`}
 						>
-							<img
+							<Image
 								className={`rounded-lg shadow-lg w-10 h-10 mr-4`}
+								layout='fill'
+								objectFit='contain'
 								alt='.'
 							/>
 						</div>

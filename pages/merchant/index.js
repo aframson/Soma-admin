@@ -5,7 +5,6 @@ export default function Merchant() {
 	return (
 		<>
 			<div className='min-h-full'>
-				
 				<div className='flex'>
 					<MerchantSidebar />
 					<div className='w-full'>
@@ -17,7 +16,7 @@ export default function Merchant() {
 							</div>
 						</header>
 						<main>
-							<div className=' mx-auto py-6 sm:px-6 lg:px-8'>
+							<div className=' mx-auto py-6 sm:px-6 lg:px-8 bg-gray-50'>
 								<MerchantData />
 							</div>
 						</main>
