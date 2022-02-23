@@ -4,13 +4,16 @@ import { MerchantSidebar } from '../../components';
 import { getSpecificMechants } from '../../config';
 import { BiArrowBack } from 'react-icons/bi';
 import Image from 'next/image';
-import {ApproveMerchant} from '../../config/schemas/index';
+import {
+	ApproveMerchant,
+	DissapproveMerchant,
+} from '../../config';
 
 function MerchantData() {
 	//default variables
 	const Router = useRouter();
 	const { merchantId } = Router.query;
-const Perterns_Table = 'partners';
+	const Perterns_Table = 'partners';
 
 	//states
 	const [data, setData] = useState([]);
@@ -27,9 +30,15 @@ const Perterns_Table = 'partners';
 	}, [merchantId]);
 
 	const runUpdateFunc = () => {
-	      ApproveMerchant(merchantId);
-		setApproved('Disapprove');
-		setApprove(true);	
+		if (approve) {
+			DissapproveMerchant(merchantId);
+			setApproved('Approve');
+			setApprove(false);
+		} else {
+			ApproveMerchant(merchantId);
+			setApproved('Disapprove');
+			setApprove(true);
+		}
 	};
 	return (
 		<div className='max-h-screen overflow-hidden'>
@@ -75,8 +84,8 @@ const Perterns_Table = 'partners';
 											<Image
 												className={`rounded-full`}
 												layout='fill'
-												src='/images/shop.png'
-												objectFit='contain'
+												src='/images/banner.png'
+												objectFit='cover'
 												alt='shop'
 											/>
 										</div>
@@ -96,7 +105,7 @@ const Perterns_Table = 'partners';
 											/>
 										</div>
 									) : (
-										<div className='w-40 h-40 -mt-20 ml-10 border-4 border-white shadow-sm relative rounded-full'>
+										<div className='w-40 h-40 -mt-20 ml-10 border-4 bg-white border-white shadow-sm relative rounded-full'>
 											<Image
 												className={`rounded-full`}
 												layout='fill'

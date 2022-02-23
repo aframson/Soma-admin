@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+
 
 const user = {
 	name: 'John Clever',
@@ -103,13 +105,16 @@ function Header() {
 													user
 													menu
 												</span>
-												<img
-													className='h-8 w-8 rounded-full'
-													src={
-														user.imageUrl
-													}
-													alt=''
-												/>
+												<div className='h-8 w-8 relative rounded-full'>
+													<Image
+														src={
+															user.imageUrl
+														}
+														alt=''
+														layout='fill'
+														objectFit='contain'
+													/>
+												</div>
 											</Menu.Button>
 										</div>
 										<Transition
@@ -202,12 +207,17 @@ function Header() {
 						</div>
 						<div className='pt-4 pb-3 border-t border-gray-700'>
 							<div className='flex items-center px-5'>
-								<div className='flex-shrink-0'>
-									<img
-										className='h-10 w-10 rounded-full'
-										src={user.imageUrl}
-										alt=''
-									/>
+								<div className=' flex-shrink-0'>
+									<div className='h-10 relative w-10 rounded-full'>
+										<Image
+											src={
+												user.imageUrl
+											}
+											alt=''
+											layout='fill'
+											objectFit='contain'
+										/>
+									</div>
 								</div>
 								<div className='ml-3'>
 									<div className='text-base font-medium leading-none text-white'>

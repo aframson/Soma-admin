@@ -24,6 +24,26 @@ const PARTNERS_TABLE = 'partners';
     }
   }
 
+    export const DissapproveMerchant = async merchantId => {
+		const q = query(
+			collection(db, PARTNERS_TABLE),
+			where('id', '==', merchantId),
+		);
+		const querySnapshot = await getDocs(q);
+		try {
+			querySnapshot.forEach(async res => {
+				// doc.id() id for document
+				const que = doc(collection(db, PARTNERS_TABLE), res.id);
+				const response = await updateDoc(que, {
+					approved: false,
+				});
+
+				return response;
+			});
+		} catch (e) {
+			console.log('error==>', e);
+		}
+    };
 
 
 
