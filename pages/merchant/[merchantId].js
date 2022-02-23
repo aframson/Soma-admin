@@ -15,18 +15,21 @@ const Perterns_Table = 'partners';
 	//states
 	const [data, setData] = useState([]);
 	const [approved, setApproved] = useState('Approve');
+	const [approve, setApprove] = useState(false);
 
 	useEffect(() => {
 		const merchantData = JSON.parse(localStorage.getItem('merchant'));
 		setData(merchantData);
 		console.log('data', merchantData);
 		merchantData.approved
-			? setApproved('Disapprove')
-			: setApproved('Approve');
+			? (setApproved('Disapprove'), setApprove(true))
+			: (setApproved('Approve'), setApprove(false));
 	}, [merchantId]);
 
 	const runUpdateFunc = () => {
-	      ApproveMerchant(merchantId).then(res => console.log('res', res));
+	      ApproveMerchant(merchantId);
+		setApproved('Disapprove');
+		setApprove(true);	
 	};
 	return (
 		<div className='max-h-screen overflow-hidden'>
@@ -131,7 +134,7 @@ const Perterns_Table = 'partners';
 											</h3>
 											<button
 												className={`${
-													data.approved
+													approve
 														? 'bg-blue-500 text-white'
 														: 'bg-white border-2 border-blue-500 text-blue'
 												} flex justify-center items-center w-36  h-12 my-4 rounded-full`}
