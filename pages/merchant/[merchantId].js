@@ -4,27 +4,30 @@ import { MerchantSidebar } from '../../components';
 import { getSpecificMechants } from '../../config';
 import { BiArrowBack } from 'react-icons/bi';
 import Image from 'next/image';
-function merchantData() {
+import {ApproveMerchant} from '../../config/schemas/index';
+
+function MerchantData() {
 	//default variables
 	const Router = useRouter();
 	const { merchantId } = Router.query;
+const Perterns_Table = 'partners';
 
 	//states
 	const [data, setData] = useState([]);
 	const [approved, setApproved] = useState('Approve');
 
 	useEffect(() => {
-		getSpecificMechants({ merchantId }).then(res => {
-			console.log(res[0]);
-			setData(res[0]);
-			if (res[0].approved) {
-				setApproved('Approved');
-			} else {
-				setApproved('Approve');
-			}
-		});
-	}, []);
+		const merchantData = JSON.parse(localStorage.getItem('merchant'));
+		setData(merchantData);
+		console.log('data', merchantData);
+		merchantData.approved
+			? setApproved('Disapprove')
+			: setApproved('Approve');
+	}, [merchantId]);
 
+	const runUpdateFunc = () => {
+	      ApproveMerchant(merchantId).then(res => console.log('res', res));
+	};
 	return (
 		<div className='max-h-screen overflow-hidden'>
 			<div className='flex'>
@@ -35,9 +38,12 @@ function merchantData() {
 							<BiArrowBack
 								color={'black'}
 								size={27}
-								onClick={e =>
-									Router.push('/merchant')
-								}
+								onClick={e => (
+									Router.push('/merchant'),
+									localStorage.removeItem(
+										'merchant',
+									)
+								)}
 							/>{' '}
 							{/* <h3  className='px-2 text-2xl'>Go Back</h3> */}
 						</div>
@@ -47,22 +53,57 @@ function merchantData() {
 							<div className=' w-9/12 flex flex-col py-6 sm:px-6 '>
 								<div className='py-2 pl-4 w-full flex justify-start'></div>
 								<div className='w-full h-full rounded-lg shadow bg-white'>
-									<div className='w-full h-48 bg-gray-100 rounded-tl-lg rounded-tr-lg'>
-										{/* <img src={data.storeBanner} alt=''  className='w-full h-full '/> */}
-									</div>
-									<div className='w-40 h-40 -mt-20 ml-10 border-4 border-white shadow-sm relative rounded-full'>
-										<Image
-											src={
-												data.storeBanner
-											}
-											alt={
-												data.storeBanner
-											}
-											layout='fill'
-											objectFit='contain'
-											className=' rounded-full'
-										/>
-									</div>
+									{data.storeBanner ? (
+										<div className='w-full h-48  relative rounded-tl-lg rounded-tr-lg'>
+											<Image
+												src={
+													data.storeBanner
+												}
+												alt={
+													data.storeBanner
+												}
+												layout='fill'
+												objectFit='cover'
+												className=' rounded-tl-lg rounded-tr-lg'
+											/>
+										</div>
+									) : (
+										<div className='w-full h-48  relative rounded-tl-lg rounded-tr-lg'>
+											<Image
+												className={`rounded-full`}
+												layout='fill'
+												src='/images/shop.png'
+												objectFit='contain'
+												alt='shop'
+											/>
+										</div>
+									)}
+									{data.storeLogo ? (
+										<div className='w-40 h-40 -mt-20 ml-10 border-4 border-white shadow-sm relative rounded-full'>
+											<Image
+												src={
+													data.storeLogo
+												}
+												alt={
+													data.storeLogo
+												}
+												layout='fill'
+												objectFit='contain'
+												className=' rounded-full'
+											/>
+										</div>
+									) : (
+										<div className='w-40 h-40 -mt-20 ml-10 border-4 border-white shadow-sm relative rounded-full'>
+											<Image
+												className={`rounded-full`}
+												layout='fill'
+												src='/images/shop.png'
+												objectFit='contain'
+												alt='shop'
+											/>
+										</div>
+									)}
+
 									<div className='w-full h-full mx-10 grid grid-cols-2 gap-4'>
 										<div className='w-full h-full ml-4 py-2'>
 											<h3 className='text-2xl font-sans font-medium text-slate-700'>
@@ -94,6 +135,9 @@ function merchantData() {
 														? 'bg-blue-500 text-white'
 														: 'bg-white border-2 border-blue-500 text-blue'
 												} flex justify-center items-center w-36  h-12 my-4 rounded-full`}
+												onClick={
+													runUpdateFunc
+												}
 											>
 												{
 													approved
@@ -129,4 +173,4 @@ function merchantData() {
 	);
 }
 
-export default merchantData;
+export default MerchantData;

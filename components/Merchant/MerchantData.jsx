@@ -49,7 +49,7 @@ export default function MerchantData() {
 									</th>
 								</tr>
 							</thead>
-							<tbody className='bg-white hover:bg-gray-50 transition divide-y divide-gray-200'>
+							<tbody className='bg-white cursor-pointer transition divide-y divide-gray-200'>
 								{data.map(merchant => (
 									<Marketable
 										key={merchant.id}

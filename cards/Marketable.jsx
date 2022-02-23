@@ -4,8 +4,18 @@ import Image from 'next/image';
 
 function Marketable({ merchant }) {
 	const Router = useRouter();
+
 	return (
-		<tr onClick={e => Router.push(`/merchant/${merchant.id}`)}>
+		<tr
+			className='hover:bg-gray-50 '
+			onClick={e => (
+				Router.push(`/merchant/${merchant.id}`),
+				localStorage.setItem(
+					'merchant',
+					JSON.stringify(merchant),
+				)
+			)}
+		>
 			<td className='px-6 py-6 whitespace-nowrap'>
 				<div className='flex items-center'>
 					{merchant.storeBanner ? (
@@ -22,13 +32,14 @@ function Marketable({ merchant }) {
 						</div>
 					) : (
 						<div
-							className={`flex-shrink-0 w-10 h-10 mr-4`}
+							className={`flex-shrink-0 relative w-10 h-10 mr-4`}
 						>
 							<Image
-								className={`rounded-lg shadow-lg w-10 h-10 mr-4`}
+								className={`rounded-lg shadow-xl w-10 h-10 mr-4`}
 								layout='fill'
+								src='/images/shop.png'
 								objectFit='contain'
-								alt='.'
+								alt='shop'
 							/>
 						</div>
 					)}
