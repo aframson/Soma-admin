@@ -3,6 +3,8 @@ import {db} from '../../config';
 
 
 const PARTNERS_TABLE = 'partners';
+const PRODUCTS_TABLE = 'products';
+
 //update metada if firestore
   export const ApproveMerchant = async (merchantId) => {
     const q = query(collection(db, PARTNERS_TABLE), where("id", "==", merchantId));
@@ -59,3 +61,14 @@ export const fetchMechants = async () => {
 	return mainData;
 };
 
+export const fetchProducts = async () => {
+	const q = query(collection(db, PRODUCTS_TABLE));
+
+	const querySnapshot = await getDocs(q);
+	const mainData = [];
+	querySnapshot.forEach(doc => {
+		mainData.push(doc.data());
+	});
+
+	return mainData;
+};

@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { MerchantSidebar } from '../../components';
-import { getSpecificMechants } from '../../config';
 import { BiArrowBack } from 'react-icons/bi';
 import Image from 'next/image';
+import { MerchantProduct } from '../../cards';
+
 import {
 	ApproveMerchant,
 	DissapproveMerchant,
+	fetchProducts,
 } from '../../config';
 
 function MerchantData() {
 	//default variables
 	const Router = useRouter();
 	const { merchantId } = Router.query;
-	const Perterns_Table = 'partners';
 
 	//states
 	const [data, setData] = useState([]);
 	const [approved, setApproved] = useState('Approve');
 	const [approve, setApprove] = useState(false);
+	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
 		const merchantData = JSON.parse(localStorage.getItem('merchant'));
@@ -27,6 +29,8 @@ function MerchantData() {
 		merchantData.approved
 			? (setApproved('Disapprove'), setApprove(true))
 			: (setApproved('Approve'), setApprove(false));
+
+		fetchProducts().then(res => setProducts(res));
 	}, [merchantId]);
 
 	const runUpdateFunc = () => {
@@ -40,6 +44,15 @@ function MerchantData() {
 			setApprove(true);
 		}
 	};
+
+	  function truncateText(selector, maxLength) {
+			let truncated = selector;
+
+			if (truncated.length > maxLength) {
+				truncated = truncated.substr(0, maxLength) + '...';
+			}
+			return truncated;
+		}
 	return (
 		<div className='max-h-screen overflow-hidden'>
 			<div className='flex'>
@@ -61,119 +74,150 @@ function MerchantData() {
 						</div>
 					</header>
 					{data.id ? (
-						<main className='max-h-screen overflow-y-auto flex'>
-							<div className=' w-9/12 flex flex-col py-6 sm:px-6 '>
-								<div className='py-2 pl-4 w-full flex justify-start'></div>
-								<div className='w-full h-full rounded-lg shadow bg-white'>
-									{data.storeBanner ? (
-										<div className='w-full h-48  relative rounded-tl-lg rounded-tr-lg'>
-											<Image
-												src={
-													data.storeBanner
-												}
-												alt={
-													data.storeBanner
-												}
-												layout='fill'
-												objectFit='cover'
-												className=' rounded-tl-lg rounded-tr-lg'
-											/>
-										</div>
-									) : (
-										<div className='w-full h-48  relative rounded-tl-lg rounded-tr-lg'>
-											<Image
-												className={`rounded-full`}
-												layout='fill'
-												src='/images/banner.png'
-												objectFit='cover'
-												alt='shop'
-											/>
-										</div>
-									)}
-									{data.storeLogo ? (
-										<div className='w-40 h-40 -mt-20 ml-10 border-4 border-white shadow-sm relative rounded-full'>
-											<Image
-												src={
-													data.storeLogo
-												}
-												alt={
-													data.storeLogo
-												}
-												layout='fill'
-												objectFit='contain'
-												className=' rounded-full'
-											/>
-										</div>
-									) : (
-										<div className='w-40 h-40 -mt-20 ml-10 border-4 bg-white border-white shadow-sm relative rounded-full'>
-											<Image
-												className={`rounded-full`}
-												layout='fill'
-												src='/images/shop.png'
-												objectFit='contain'
-												alt='shop'
-											/>
-										</div>
-									)}
+						<main className='max-h-screen overflow-y-auto'>
+							<div className='w-full h-full flex'>
+								<div className=' w-9/12 flex flex-col py-6 sm:px-6 '>
+									<div className='py-2 pl-4 w-full flex justify-start'></div>
+									<div className='w-full h-full rounded-lg shadow bg-white'>
+										{data.storeBanner ? (
+											<div className='w-full h-48  relative rounded-tl-lg rounded-tr-lg'>
+												<Image
+													src={
+														data.storeBanner
+													}
+													alt={
+														data.storeBanner
+													}
+													layout='fill'
+													objectFit='cover'
+													className=' rounded-tl-lg rounded-tr-lg'
+												/>
+											</div>
+										) : (
+											<div className='w-full h-48  relative rounded-tl-lg rounded-tr-lg'>
+												<Image
+													className={`rounded-full`}
+													layout='fill'
+													src='/images/banner.png'
+													objectFit='cover'
+													alt='shop'
+												/>
+											</div>
+										)}
+										{data.storeLogo ? (
+											<div className='w-40 h-40 -mt-20 ml-10 border-4 border-white shadow-sm relative rounded-full'>
+												<Image
+													src={
+														data.storeLogo
+													}
+													alt={
+														data.storeLogo
+													}
+													layout='fill'
+													objectFit='contain'
+													className=' rounded-full'
+												/>
+											</div>
+										) : (
+											<div className='w-40 h-40 -mt-20 ml-10 border-4 bg-white border-white shadow-sm relative rounded-full'>
+												<Image
+													className={`rounded-full`}
+													layout='fill'
+													src='/images/shop.png'
+													objectFit='contain'
+													alt='shop'
+												/>
+											</div>
+										)}
 
-									<div className='w-full h-full mx-10 grid grid-cols-2 gap-4'>
-										<div className='w-full h-full ml-4 py-2'>
-											<h3 className='text-2xl font-sans font-medium text-slate-700'>
-												{' '}
-												{
-													data.businessName
-												}
-											</h3>
-											<h3 className='text-lg font-sans font-normal text-slate-700'>
-												{' '}
-												{
-													data.establishment
-												}
-											</h3>
-											<h3 className='text-sm font-sans font-normal text-slate-400'>
-												{' '}
-												{
-													data.institution
-												}{' '}
-												<span className='text-blue-500 font-medium text-decoration-line cursor-pointer'>
-													.
-													Contact
-													Info
-												</span>
-											</h3>
-											<button
-												className={`${
-													approve
-														? 'bg-blue-500 text-white'
-														: 'bg-white border-2 border-blue-500 text-blue'
-												} flex justify-center items-center w-36  h-12 my-4 rounded-full`}
-												onClick={
-													runUpdateFunc
-												}
-											>
-												{
-													approved
-												}
-											</button>
-										</div>
-										<div className='w-full h-full ml-4 py-2'>
-											<h3 className='text-2xl font-sans font-medium text-slate-700 '>
-												{' '}
-												Description
-											</h3>
-											<h3 className='w-1/2 text-sm font-sans font-normal text-slate-400'>
-												{' '}
-												{
-													data.description
-												}{' '}
-											</h3>
+										<div className='w-full h-full mx-10 grid grid-cols-2 gap-4'>
+											<div className='w-full h-full ml-4 py-2'>
+												<h3 className='text-2xl font-sans font-medium text-slate-700'>
+													{' '}
+													{
+														data.businessName
+													}
+												</h3>
+												<h3 className='text-lg font-sans font-normal text-slate-700'>
+													{' '}
+													{
+														data.establishment
+													}
+												</h3>
+												<h3 className='text-sm font-sans font-normal text-slate-400'>
+													{' '}
+													{
+														data.institution
+													}{' '}
+													<span className='text-blue-500 font-medium text-decoration-line cursor-pointer'>
+														.
+														Contact
+														Info
+													</span>
+												</h3>
+												<button
+													className={`${
+														approve
+															? 'bg-blue-500 text-white'
+															: 'bg-white border-2 border-blue-500 text-blue'
+													} flex justify-center items-center w-36  h-12 my-4 rounded-full`}
+													onClick={
+														runUpdateFunc
+													}
+												>
+													{
+														approved
+													}
+												</button>
+											</div>
+											<div className='w-full h-full ml-4 py-2'>
+												<h3 className='text-2xl  font-sans font-medium text-slate-700 '>
+													{' '}
+													Description
+												</h3>
+												<h3 className=' text-base w-8/12 font-sans text-slate-500  font-semibold'>
+													{truncateText(
+														data.description,
+														156,
+													)}
+												</h3>
+											</div>
 										</div>
 									</div>
 								</div>
+								<div className='w-4/12  flex flex-col py-6 sm:px-6'>
+									<div className='py-2  w-full flex justify-start'></div>
+									<div className='w-full h-full rounded-lg  border border-gray-100 shadow bg-white'></div>
+								</div>
 							</div>
-							<div className='w-4/12  flex flex-col py-6 sm:px-6'>
-								<div className='py-2  w-full flex justify-start'></div>
-								<div className='w-full h-full rounded-lg  border border-gray-100 shadow bg-white'></div>
+
+							<div className='w-full h-full flex mb-20'>
+								<div className=' w-9/12 flex flex-col items-center py-6 sm:px-6 '>
+									<div className='pb-6 pl-4 w-full flex justify-start'>
+										<h3 className='text-2xl font-sans font-medium text-slate-700'>
+											Merchant
+											Products
+										</h3>
+									</div>
+									<div className='w-11/12 h-full rounded-sm grid grid-cols-2 gap-10 '>
+										{products?.map(
+											product => (
+												<MerchantProduct
+													key={
+														product.id
+													}
+													product={
+														product
+													}
+												/>
+											),
+										)}
+									</div>
+								</div>
+								<div className='w-4/12  flex flex-col py-6 sm:px-6'>
+									{/* <div className='py-2  w-full flex justify-start'></div> */}
+									{/* <div className='w-full h-full rounded-lg  border border-gray-100 shadow bg-white'></div> */}
+								</div>
 							</div>
 						</main>
 					) : (
